@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
@@ -160,61 +162,61 @@ Route::put('customers/{customer}/restore', [CustomerController::class, 'restore'
     ->middleware('auth');
 
 //Projects
-Route::get('organizations', [OrganizationsController::class, 'index'])
-    ->name('organizations')
+Route::get('projects', [ProjectController::class, 'index'])
+    ->name('projects')
     ->middleware('auth');
 
-Route::get('organizations/create', [OrganizationsController::class, 'create'])
-    ->name('organizations.create')
+Route::get('projects/create', [ProjectController::class, 'create'])
+    ->name('projects.create')
     ->middleware('auth');
 
-Route::post('organizations', [OrganizationsController::class, 'store'])
-    ->name('organizations.store')
+Route::post('projects', [ProjectController::class, 'store'])
+    ->name('projects.store')
     ->middleware('auth');
 
-Route::get('organizations/{organization}/edit', [OrganizationsController::class, 'edit'])
-    ->name('organizations.edit')
+Route::get('projects/{project}/edit', [ProjectController::class, 'edit'])
+    ->name('projects.edit')
     ->middleware('auth');
 
-Route::put('organizations/{organization}', [OrganizationsController::class, 'update'])
-    ->name('organizations.update')
+Route::put('projects/{project}', [ProjectController::class, 'update'])
+    ->name('projects.update')
     ->middleware('auth');
 
-Route::delete('organizations/{organization}', [OrganizationsController::class, 'destroy'])
-    ->name('organizations.destroy')
+Route::delete('projects/{project}', [ProjectController::class, 'destroy'])
+    ->name('projects.destroy')
     ->middleware('auth');
 
-Route::put('organizations/{organization}/restore', [OrganizationsController::class, 'restore'])
-    ->name('organizations.restore')
+Route::put('projects/{project}/restore', [ProjectController::class, 'restore'])
+    ->name('projects.restore')
     ->middleware('auth');
 
 //Tasks
-Route::get('organizations', [OrganizationsController::class, 'index'])
-    ->name('organizations')
+Route::get('tasks', [TaskController::class, 'index'])
+    ->name('tasks')
     ->middleware('auth');
 
-Route::get('organizations/create', [OrganizationsController::class, 'create'])
-    ->name('organizations.create')
+Route::get('tasks/create', [TaskController::class, 'create'])
+    ->name('tasks.create')
     ->middleware('auth');
 
-Route::post('organizations', [OrganizationsController::class, 'store'])
-    ->name('organizations.store')
+Route::post('tasks', [TaskController::class, 'store'])
+    ->name('tasks.store')
     ->middleware('auth');
 
-Route::get('organizations/{organization}/edit', [OrganizationsController::class, 'edit'])
-    ->name('organizations.edit')
+Route::get('tasks/{task}/edit', [TaskController::class, 'edit'])
+    ->name('tasks.edit')
     ->middleware('auth');
 
-Route::put('organizations/{organization}', [OrganizationsController::class, 'update'])
-    ->name('organizations.update')
+Route::put('tasks/{task}', [TaskController::class, 'update'])
+    ->name('tasks.update')
     ->middleware('auth');
 
-Route::delete('organizations/{organization}', [OrganizationsController::class, 'destroy'])
-    ->name('organizations.destroy')
+Route::delete('tasks/{task}', [TaskController::class, 'destroy'])
+    ->name('tasks.destroy')
     ->middleware('auth');
 
-Route::put('organizations/{organization}/restore', [OrganizationsController::class, 'restore'])
-    ->name('organizations.restore')
+Route::put('tasks/{task}/restore', [TaskController::class, 'restore'])
+    ->name('tasks.restore')
     ->middleware('auth');
 
 

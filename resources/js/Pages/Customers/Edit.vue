@@ -12,7 +12,7 @@
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
           <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" label="Nombre" />
           <text-input v-model="form.fiscal_identification" :error="form.errors.fiscal_identification" class="pb-8 pr-6 w-full lg:w-1/2" label="Identificación fiscal" />
-          <text-input v-model="form.phone" :error="form.errors.phone" class="pb-8 pr-6 w-full lg:w-1/2" label="Teléfono" />
+          <text-input v-model="form.telephone" :error="form.errors.telephone" class="pb-8 pr-6 w-full lg:w-1/2" label="Teléfono" />
           <text-input v-model="form.email" :error="form.errors.email" class="pb-8 pr-6 w-full lg:w-1/2" label="Correo" />
           <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" label="Dirección" />
         </div>

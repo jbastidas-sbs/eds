@@ -1,28 +1,31 @@
 <template>
   <div>
-    <Head title="Create Organization" />
+    <Head title="Nuevo Proyecto" />
     <h1 class="mb-8 text-3xl font-bold">
-      <Link class="text-indigo-400 hover:text-indigo-600" href="/organizations">Organizations</Link>
-      <span class="text-indigo-400 font-medium">/</span> Create
+      <Link class="text-indigo-400 hover:text-indigo-600" href="/projects">Nuevo</Link>
+      <span class="text-indigo-400 font-medium">/</span> Proyecto
     </h1>
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="store">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-          <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" label="Name" />
-          <text-input v-model="form.email" :error="form.errors.email" class="pb-8 pr-6 w-full lg:w-1/2" label="Email" />
-          <text-input v-model="form.phone" :error="form.errors.phone" class="pb-8 pr-6 w-full lg:w-1/2" label="Phone" />
-          <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" label="Address" />
-          <text-input v-model="form.city" :error="form.errors.city" class="pb-8 pr-6 w-full lg:w-1/2" label="City" />
-          <text-input v-model="form.region" :error="form.errors.region" class="pb-8 pr-6 w-full lg:w-1/2" label="Province/State" />
-          <select-input v-model="form.country" :error="form.errors.country" class="pb-8 pr-6 w-full lg:w-1/2" label="Country">
+          <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" label="Nombre" />
+          <text-input v-model="form.code" :error="form.errors.code" class="pb-8 pr-6 w-full lg:w-1/2" label="Código" />
+          <text-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full lg:w-1/2" label="Descripción" />
+          <select-input v-model="form.project_type_id" :error="form.errors.project_type_id" @change="setProjectableType" class="pb-8 pr-6 w-full lg:w-1/2" label="Tipo de proyecto">
             <option :value="null" />
-            <option value="CA">Canada</option>
-            <option value="US">United States</option>
+            <option v-for="projectType in projectTypes" :key="projectType.id" :value="projectType.id">{{ projectType.name }}</option>
           </select-input>
-          <text-input v-model="form.postal_code" :error="form.errors.postal_code" class="pb-8 pr-6 w-full lg:w-1/2" label="Postal code" />
+          <select-input v-if="form.project_type_id === 1" v-model="form.projectable_id" :error="form.errors.projectable_id" class="pb-8 pr-6 w-full lg:w-1/2" label="Responsable">
+            <option :value="null" />
+            <option v-for="user in users" :key="user.id" :value="user.id">{{ user.first_name }}</option>
+          </select-input>
+          <select-input v-if="form.project_type_id === 2" v-model="form.projectable_id" :error="form.errors.projectable_id" class="pb-8 pr-6 w-full lg:w-1/2" label="Responsable">
+            <option :value="null" />
+            <option v-for="customer in customers" :key="customer.id" :value="customer.id">{{ customer.name }}</option>
+          </select-input>
         </div>
         <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
-          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Create Organization</loading-button>
+          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Guardar Proyecto</loading-button>
         </div>
       </form>
     </div>
@@ -45,24 +48,36 @@ export default {
     TextInput,
   },
   layout: Layout,
+  props: {
+    projectTypes: Array,
+    users: Array,
+    customers: Array,
+  },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        name: null,
-        email: null,
-        phone: null,
-        address: null,
-        city: null,
-        region: null,
-        country: null,
-        postal_code: null,
+        name: '',
+        code: '',
+        project_type_id: null,
+        description: '',
+        projectable_id: null,
+        projectable_type: '',
       }),
     }
   },
   methods: {
+    setProjectableType() {
+      console.log('ESTE ES EL SELECT');
+      if (this.form.project_type_id === 1) {
+        this.form.projectable_type = 'App\Models\User'
+      }
+      else{
+        this.form.projectable_type = 'App\Models\Customer'
+      }
+    },
     store() {
-      this.form.post('/organizations')
+      this.form.post('/projects')
     },
   },
 }
