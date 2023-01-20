@@ -38,7 +38,7 @@ class ProjectController extends Controller
     public function create()
     {
         return Inertia::render('Projects/Create', [
-            'projectTypes' => ProjectType::get(),
+            'projectTypes' => ProjectType::all(),
             'users' => User::orderByName()
                 ->get()
                 ->map
@@ -48,5 +48,21 @@ class ProjectController extends Controller
             ->map
             ->only('id','name'),
         ]);
+    }
+
+    public function store()
+    {
+        Project::create(
+            Request::validate([
+                'code' => ['required', 'max:50'],
+                'name' => ['required', 'max:50'],
+                'porject_type_id' => ['required'],
+                'description' => ['nullable', 'max:150'],
+                'projectable_id' => ['required'],
+                'projectable_type' => ['required', 'max:50'],
+            ])
+        );
+
+        return Redirect::route('projects')->with('success', 'Proyecto guardado.');
     }
 }

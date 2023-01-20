@@ -11,7 +11,7 @@
           <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" label="Nombre" />
           <text-input v-model="form.code" :error="form.errors.code" class="pb-8 pr-6 w-full lg:w-1/2" label="Código" />
           <text-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full lg:w-1/2" label="Descripción" />
-          <select-input v-model="form.project_type_id" :error="form.errors.project_type_id" @change="setProjectableType" class="pb-8 pr-6 w-full lg:w-1/2" label="Tipo de proyecto">
+          <select-input id="project_type" v-model="form.project_type_id" :error="form.errors.project_type_id" @change="setProjectableType" class="pb-8 pr-6 w-full lg:w-1/2" label="Tipo de proyecto">
             <option :value="null" />
             <option v-for="projectType in projectTypes" :key="projectType.id" :value="projectType.id">{{ projectType.name }}</option>
           </select-input>
@@ -68,12 +68,12 @@ export default {
   },
   methods: {
     setProjectableType() {
-      console.log('ESTE ES EL SELECT');
-      if (this.form.project_type_id === 1) {
-        this.form.projectable_type = 'App\Models\User'
+      const select = document.getElementById('project_type');
+      if (select.value == 1) {
+        this.form.projectable_type = 'App\\Models\\User'
       }
       else{
-        this.form.projectable_type = 'App\Models\Customer'
+        this.form.projectable_type = 'App\\Models\\Customer'
       }
     },
     store() {
