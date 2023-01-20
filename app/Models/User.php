@@ -100,4 +100,9 @@ class User extends Authenticatable
             }
         });
     }
+
+    public function projects()
+    {
+        return $this->morphMany(Project::class,'projectable');
+    }
 }
